@@ -18,6 +18,7 @@ const config: Config = {
         'light-grey': '#FAFAFA',
         'metallic-gold': '#DEB841',
         'hunyadi-yellow': '#DE9E36',
+        'coyote':'#ECE5D5',
 
       },
       fontSize: {

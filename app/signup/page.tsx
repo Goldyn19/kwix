@@ -6,9 +6,9 @@ const page = () => {
     <div className="flex flex-col items-center bg-french-gray mx-auto p-4 justify-center h-screen ">
     <div className="flex items-center mb-5">
       <Image
-        src="/images/gamelogo2.svg"
+        src="/images/gamelogo.svg"
         alt="logo"
-        className="mt-2 h-[34px] w-auto"
+        className="mt-2 h-auto w-auto"
         height={34}
         width={34}
       />
