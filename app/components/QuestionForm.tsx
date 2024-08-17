@@ -1,20 +1,39 @@
 import React from "react";
-import { useState } from "react";
 import Image from "next/image";
-const QuestionForm = () => {
-  const [question, setQuestion] = useState("");
-  const [option1, setOption1] = useState("");
-  const [option2, setOption2] = useState("");
-  const [option3, setOption3] = useState("");
-  const [option4, setOption4] = useState("");
+
+interface QuestionFormProps {
+  question: string;
+  setQuestion: (value: string) => void;
+  option1: string;
+  setOption1: (value: string) => void;
+  option2: string;
+  setOption2: (value: string) => void;
+  option3: string;
+  setOption3: (value: string) => void;
+  option4: string;
+  setOption4: (value: string) => void;
+}
+
+const QuestionForm: React.FC<QuestionFormProps> = ({
+  question,
+  setQuestion,
+  option1,
+  setOption1,
+  option2,
+  setOption2,
+  option3,
+  setOption3,
+  option4,
+  setOption4,
+}) => {
   return (
     <div className="mt-3">
-      <form action="" className="">
+      <form action="">
         <div className="relative">
           <input
             type="text"
             id="question"
-            className="rounded-lg  w-full pl-10  border text-center placeholder-metallic-gold border-dark-grey text-body-m focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
+            className="rounded-lg w-full pl-10 text-center placeholder-metallic-gold border border-dark-grey text-body-m focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
             placeholder="Enter the question"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
@@ -25,22 +44,22 @@ const QuestionForm = () => {
           <button className="bg-coyote flex flex-col items-center px-5 py-8 rounded-md m-5">
             <Image
               src="/images/addimage.svg"
-              alt="logo"
+              alt="Upload"
               className="mt-2 h-auto w-auto"
               height={40}
               width={40}
             />
             <h1 className="text-heading-s text-hunyadi-yellow">
-              +Upload Image
+              + Upload Image
             </h1>
           </button>
         </div>
-        <div className="flex justify-between ">
+        <div className="flex justify-between">
           <div className="space-y-5">
             <div className="relative">
               <Image
                 src="/images/letterA.svg"
-                alt="logo"
+                alt="Option A"
                 className="mt-2 h-[34px] w-auto absolute inset-y-0 left-0 flex items-center mx-3"
                 height={34}
                 width={34}
@@ -56,9 +75,9 @@ const QuestionForm = () => {
               />
             </div>
             <div className="relative">
-            <Image
+              <Image
                 src="/images/letterC.svg"
-                alt="logo"
+                alt="Option C"
                 className="mt-2 h-[34px] w-auto absolute inset-y-0 left-0 flex items-center mx-3"
                 height={34}
                 width={34}
@@ -76,9 +95,9 @@ const QuestionForm = () => {
           </div>
           <div className="space-y-5">
             <div className="relative">
-            <Image
+              <Image
                 src="/images/letterB.svg"
-                alt="logo"
+                alt="Option B"
                 className="mt-2 h-[34px] w-auto absolute inset-y-0 left-0 flex items-center mx-3"
                 height={34}
                 width={34}
@@ -94,9 +113,9 @@ const QuestionForm = () => {
               />
             </div>
             <div className="relative">
-            <Image
+              <Image
                 src="/images/letterD.svg"
-                alt="logo"
+                alt="Option D"
                 className="mt-2 h-[34px] w-auto absolute inset-y-0 left-0 flex items-center mx-3"
                 height={34}
                 width={34}

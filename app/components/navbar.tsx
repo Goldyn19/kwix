@@ -57,7 +57,7 @@ const Navbar = () => {
             <Image
               src="/images/quizicon.svg"
               alt="logo"
-              className=" h-auto w-auto md:py-2 py-3"
+              className=" h-[34px] w-auto md:mt-1 mt-3"
               height={34}
               width={34}
             />
@@ -77,7 +77,7 @@ const Navbar = () => {
           </button>
           <button className="border border-hunyadi-yellow text-hunyadi-yellow text-heading-s px-4 py-3 rounded-lg block md:hidden ">
           <Image
-              src="/images/previewIcon.svg"
+              src="/images/gameIcon.svg"
               alt="logo"
               className=" h-5 w-5  "
               height={20}
