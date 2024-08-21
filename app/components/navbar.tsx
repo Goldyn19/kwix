@@ -26,10 +26,10 @@ const Navbar = () => {
         </div>
         </a>
         <div className="flex ">
-          <a href="/links">
+          <a href="/question">
           <div
             className={`cursor-pointer flex items-center justify-center px-6 rounded-lg ${
-              currentPath === "/question" ? "text-custom-blue bg-coyote" : ""
+              currentPath === "/question" ? "text-hunyadi-yellow bg-coyote" : ""
             }`}
           >
             <Image
@@ -48,22 +48,22 @@ const Navbar = () => {
             </h1>
           </div>
           </a>
-         <a href="/profile">
+         <a href="/quizes">
          <div
-            className={`cursor-pointer flex items-center justify-center  px-6 rounded-lg ${
-              currentPath === "/profile" ? "text-custom-blue bg-light-purple" : ""
+            className={`cursor-pointer flex items-center justify-center py-1  px-6 rounded-lg ${
+              currentPath === "/quizes" ? "text-hunyadi-yellow bg-coyote" : ""
             }`}
           >
             <Image
               src="/images/quizicon.svg"
               alt="logo"
-              className=" h-[34px] w-auto md:mt-1 mt-3"
+              className=" h-[34px] w-auto md:mt-1 m-2"
               height={34}
               width={34}
             />
             <h1
               className={`text-heading-s pl-1  hidden md:block ${
-                currentPath === "/profile" ? "text-custom-blue  " : "text-light-black"
+                currentPath === "/quizes" ? "text-hunyadi-yellow  " : "text-light-black"
               }`}
             >
              my games

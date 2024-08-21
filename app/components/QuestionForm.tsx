@@ -1,5 +1,8 @@
 import React from "react";
 import Image from "next/image";
+import * as RadioGroup from '@radix-ui/react-radio-group';
+
+
 
 interface QuestionFormProps {
   question: string;
@@ -12,6 +15,8 @@ interface QuestionFormProps {
   setOption3: (value: string) => void;
   option4: string;
   setOption4: (value: string) => void;
+  correctOption: string;
+  setCorrectOption: (value: string) => void;
 }
 
 const QuestionForm: React.FC<QuestionFormProps> = ({
@@ -25,6 +30,8 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
   setOption3,
   option4,
   setOption4,
+  correctOption,
+  setCorrectOption,
 }) => {
   return (
     <div className="mt-3">
@@ -54,7 +61,11 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
             </h1>
           </button>
         </div>
-        <div className="flex justify-between">
+        <RadioGroup.Root
+          className="flex justify-between border-hunyadi-yellow checked:bg-hunyadi-yellow"
+          value={correctOption}
+          onValueChange={(value) => setCorrectOption(value)}
+        >
           <div className="space-y-5">
             <div className="relative">
               <Image
@@ -73,6 +84,13 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                 onChange={(e) => setOption1(e.target.value)}
                 aria-label="option1"
               />
+               <RadioGroup.Item
+                value="A"
+                className="absolute inset-y-4 right-2 border border-hunyadi-yellow checked:bg-hunyadi-yellow w-[25px] h-[25px] rounded-full"
+                aria-label="Select option 1 as correct"
+              >
+                <RadioGroup.Indicator className="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-hunyadi-yellow" />
+              </RadioGroup.Item>
             </div>
             <div className="relative">
               <Image
@@ -91,6 +109,13 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                 onChange={(e) => setOption2(e.target.value)}
                 aria-label="option2"
               />
+               <RadioGroup.Item
+                value="B"
+                className="absolute inset-y-4 right-2 border border-hunyadi-yellow checked:bg-hunyadi-yellow w-[25px] h-[25px] rounded-full"
+                aria-label="Select option 4 as correct"
+              >
+                <RadioGroup.Indicator className="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-hunyadi-yellow" />
+              </RadioGroup.Item>
             </div>
           </div>
           <div className="space-y-5">
@@ -111,6 +136,13 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                 onChange={(e) => setOption3(e.target.value)}
                 aria-label="option3"
               />
+               <RadioGroup.Item
+                value="C"
+                className="absolute inset-y-4 right-2 border border-hunyadi-yellow checked:bg-hunyadi-yellow w-[25px] h-[25px] rounded-full"
+                aria-label="Select option 4 as correct"
+              >
+                <RadioGroup.Indicator className="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-hunyadi-yellow" />
+              </RadioGroup.Item>
             </div>
             <div className="relative">
               <Image
@@ -129,9 +161,16 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                 onChange={(e) => setOption4(e.target.value)}
                 aria-label="option4"
               />
+               <RadioGroup.Item
+                value="D"
+                 className="absolute inset-y-4 right-2 border border-hunyadi-yellow checked:bg-hunyadi-yellow w-[25px] h-[25px] rounded-full"
+                aria-label="Select option 4 as correct"
+              >
+                <RadioGroup.Indicator className="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-hunyadi-yellow" />
+              </RadioGroup.Item>
             </div>
           </div>
-        </div>
+          </RadioGroup.Root>
       </form>
     </div>
   );

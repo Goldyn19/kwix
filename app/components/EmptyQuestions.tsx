@@ -11,7 +11,7 @@ const EmptyQuestions = () => {
           width={250}
         />
     <h1 className="text-heading-m my-5">Let’s get you started</h1>
-    <h1 className="text-body-m text-light-black w-[500px] text-center text leading-tight my-5">Use the “Create new question” button to get started. Once you have more than one question, you can create a quiz and host a game. We’re here to help you enjoy fun time with family and friends!</h1>
+    <h1 className="text-body-m text-light-black md:w-[500px] w-full text-center text leading-tight my-5">Use the “Create new question” button to get started. Once you have more than one question, you can create a quiz and host a game. We’re here to help you enjoy fun time with family and friends!</h1>
   </div>
   )
 }

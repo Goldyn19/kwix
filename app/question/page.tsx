@@ -12,6 +12,7 @@ const Page = () => {
   const [option2, setOption2] = useState("");
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("");
+  const[correctOption, setCorrectOption] = useState('')
 
   const toggleForm = () => {
     setFormVisible(!formVisible);
@@ -30,30 +31,30 @@ const Page = () => {
               height={632}
               width={308}
             />
-            <div className="bg-[#EEEEEE] min-h-[30px] w-[250px] z-10 flex absolute top-32 items-center justify-center p-2">
+            <div className="bg-[#EEEEEE] min-h-[30px] w-[250px] z-10 flex absolute top-32 items-center justify-center p-2 overflow-hidden ">
               <h1 className="text-center">{question}</h1>
             </div>
             <div className="bg-[#EEEEEE] rounded-lg h-auto  w-[250px] z-10 flex justify-between absolute top-60 mt-3 "></div>
             <div className=" rounded-lg h-auto w-[250px] z-10 flex justify-between absolute top-72  ">
               <div className="space-y-5">
-                <div className="bg-[#EEEEEE] w-[110px] min-h-[30px] flex text-center justify-center p-2">
+                <div className="bg-[#EEEEEE] w-[110px] min-h-[30px] flex text-center justify-center p-2 overflow-hidden">
                     <h1 className="text-center">
                     {option1}
                     </h1>
                 </div>
-                <div className="bg-[#EEEEEE] w-[110px] min-h-[30px] flex justify-center p-2">
+                <div className="bg-[#EEEEEE] w-[110px] min-h-[30px] flex justify-center p-2 overflow-hidden">
                     <h1 className="text-center">
                     {option2}
                     </h1>
                 </div>
               </div>
               <div className="space-y-5">
-                <div className="bg-[#EEEEEE] w-[110px] min-h-[30px] flex justify-center p-2">
+                <div className="bg-[#EEEEEE] w-[110px] min-h-[30px] flex justify-center p-2 overflow-hidden">
                     <h1 className="text-center">
                     {option3}
                     </h1>
                 </div>
-                <div className="bg-[#EEEEEE] w-[110px] min-h-[30px] flex justify-center p-2 break-words">
+                <div className="bg-[#EEEEEE] w-[110px] min-h-[30px] flex justify-center p-2 break-words overflow-hidden">
                     <h1 className="text-center">
                     {option4}
                     </h1>
@@ -86,6 +87,9 @@ const Page = () => {
                   setOption3={setOption3}
                   option4={option4}
                   setOption4={setOption4}
+                  correctOption={correctOption}
+                  setCorrectOption={setCorrectOption}
+                
                 />
               ) : (
                 <EmptyQuestions />
