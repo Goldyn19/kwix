@@ -1,8 +1,6 @@
-import React from "react";
+import React, { FormEvent, useState } from "react";
 import Image from "next/image";
-import * as RadioGroup from '@radix-ui/react-radio-group';
-
-
+import * as RadioGroup from "@radix-ui/react-radio-group";
 
 interface QuestionFormProps {
   question: string;
@@ -17,6 +15,12 @@ interface QuestionFormProps {
   setOption4: (value: string) => void;
   correctOption: string;
   setCorrectOption: (value: string) => void;
+  image: File | string | null;
+  handleImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (event: React.FormEvent) => void;
+  totalQuestions: number;
+  currentQuestion: number;
+  questionID ? :number
 }
 
 const QuestionForm: React.FC<QuestionFormProps> = ({
@@ -32,10 +36,19 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
   setOption4,
   correctOption,
   setCorrectOption,
+  image,
+  handleImageUpload,
+  handleSubmit,
+  totalQuestions,
+  currentQuestion
+  
 }) => {
+  
+  const imagePreviewUrl = image instanceof File ? URL.createObjectURL(image) : image;
+
   return (
     <div className="mt-3">
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <div className="relative">
           <input
             type="text"
@@ -48,25 +61,48 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
           />
         </div>
         <div className="flex items-center justify-center w-full">
-          <button className="bg-coyote flex flex-col items-center px-5 py-8 rounded-md m-5">
-            <Image
-              src="/images/addimage.svg"
-              alt="Upload"
-              className="mt-2 h-auto w-auto"
-              height={40}
-              width={40}
-            />
-            <h1 className="text-heading-s text-hunyadi-yellow">
-              + Upload Image
-            </h1>
-          </button>
+          <input
+            type="file"
+            accept="image/*" 
+            onChange={handleImageUpload}
+            className="hidden" 
+            id="image-upload"
+          />
+          <label
+            htmlFor="image-upload"
+            className="bg-coyote flex flex-col min-h-40 min-w-40 items-center px-5 py-8 rounded-md m-5 cursor-pointer"
+            style={{
+              backgroundImage: imagePreviewUrl
+                ? `url(${imagePreviewUrl})`
+                : "none",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            
+          >
+            {!image && (
+              <>
+                <Image
+                  src="/images/addimage.svg"
+                  alt="Upload"
+                  className="mt-2 h-auto w-auto"
+                  height={40}
+                  width={40}
+                />
+                <h1 className="text-heading-s text-hunyadi-yellow">
+                  + Upload Image
+                </h1>
+              </>
+            )}
+          </label>
         </div>
+
         <RadioGroup.Root
-          className="flex justify-between border-hunyadi-yellow checked:bg-hunyadi-yellow"
+          className="flex justify-between md:space-x-0 space-x-2 border-hunyadi-yellow checked:bg-hunyadi-yellow"
           value={correctOption}
           onValueChange={(value) => setCorrectOption(value)}
         >
-          <div className="space-y-5">
+          <div className="space-y-5 ">
             <div className="relative">
               <Image
                 src="/images/letterA.svg"
@@ -78,13 +114,13 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
               <input
                 type="text"
                 id="option1"
-                className="rounded-lg block w-full pl-20 border border-dark-grey text-body-m focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
+                className="rounded-lg block w-full md:pl-20 pl-14 border border-dark-grey text-body-m focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
                 placeholder="Enter option"
                 value={option1}
                 onChange={(e) => setOption1(e.target.value)}
                 aria-label="option1"
               />
-               <RadioGroup.Item
+              <RadioGroup.Item
                 value="A"
                 className="absolute inset-y-4 right-2 border border-hunyadi-yellow checked:bg-hunyadi-yellow w-[25px] h-[25px] rounded-full"
                 aria-label="Select option 1 as correct"
@@ -103,13 +139,13 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
               <input
                 type="text"
                 id="option2"
-                className="rounded-lg block w-full pl-20 border border-dark-grey text-body-m focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
+                className="rounded-lg block w-full md:pl-20 pl-14 border border-dark-grey text-body-m focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
                 placeholder="Enter option"
                 value={option2}
                 onChange={(e) => setOption2(e.target.value)}
                 aria-label="option2"
               />
-               <RadioGroup.Item
+              <RadioGroup.Item
                 value="B"
                 className="absolute inset-y-4 right-2 border border-hunyadi-yellow checked:bg-hunyadi-yellow w-[25px] h-[25px] rounded-full"
                 aria-label="Select option 4 as correct"
@@ -130,13 +166,13 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
               <input
                 type="text"
                 id="option3"
-                className="rounded-lg block w-full pl-20 border border-dark-grey text-body-m focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
+                className="rounded-lg block w-full md:pl-20 pl-14 border border-dark-grey text-body-m focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
                 placeholder="Enter option"
                 value={option3}
                 onChange={(e) => setOption3(e.target.value)}
                 aria-label="option3"
               />
-               <RadioGroup.Item
+              <RadioGroup.Item
                 value="C"
                 className="absolute inset-y-4 right-2 border border-hunyadi-yellow checked:bg-hunyadi-yellow w-[25px] h-[25px] rounded-full"
                 aria-label="Select option 4 as correct"
@@ -155,22 +191,31 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
               <input
                 type="text"
                 id="option4"
-                className="rounded-lg block w-full pl-20 border border-dark-grey text-body-m focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
+                className="rounded-lg block w-full md:pl-20 pl-14 border border-dark-grey text-body-m focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
                 placeholder="Enter option"
                 value={option4}
                 onChange={(e) => setOption4(e.target.value)}
                 aria-label="option4"
               />
-               <RadioGroup.Item
+              <RadioGroup.Item
                 value="D"
-                 className="absolute inset-y-4 right-2 border border-hunyadi-yellow checked:bg-hunyadi-yellow w-[25px] h-[25px] rounded-full"
+                className="absolute inset-y-4 right-2 border border-hunyadi-yellow checked:bg-hunyadi-yellow w-[25px] h-[25px] rounded-full"
                 aria-label="Select option 4 as correct"
               >
                 <RadioGroup.Indicator className="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-hunyadi-yellow" />
               </RadioGroup.Item>
             </div>
           </div>
-          </RadioGroup.Root>
+        </RadioGroup.Root>
+        {totalQuestions > 0 && (
+              <div className="text-center mt-12 text-hunyadi-yellow block md:hidden font-semibold">
+                Question {currentQuestion} of {totalQuestions}
+              </div>
+            )}
+        <hr className="w-full mt-0 md:mt-8  mb-5 border-light-black" />
+          <button type="submit" className="py-4 rounded-lg px-5 absolute right-5 bg-hunyadi-yellow">
+            Save
+          </button>
       </form>
     </div>
   );

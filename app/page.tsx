@@ -27,7 +27,7 @@ export default function Home() {
     if (result?.error) {
       setError(result.error);
     } else {
-      router.push('/links');
+      router.push('/quizes');
     }
   };
 

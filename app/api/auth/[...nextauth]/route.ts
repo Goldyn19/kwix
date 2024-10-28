@@ -71,8 +71,8 @@ const handler = NextAuth({
     },
   },
   session: {
-    maxAge: 2 * 60 * 60, // 2 hours in seconds
-    updateAge: 60 * 60,  // Update session every hour (optional)
+    maxAge: 0.5 * 60 * 60, // 2 hours in seconds
+    updateAge: 0.25 * 60 * 60,  // Update session every hour (optional)
   },
   pages: {
     signIn: '/', // Customize the login page URL

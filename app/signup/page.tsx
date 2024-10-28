@@ -1,9 +1,78 @@
-import React from 'react'
+'use client'
+import React, {useState} from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
-const page = () => {
+const Page = () => {
+  const [email, setEmail] = useState("");
+  const[username, setUsername] = useState('')
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  const router = useRouter() 
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+   
+    setError("");
+    setSuccess(false);
+
+    
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    const formData = {
+      email: email,
+      username: username,
+      password: password,
+    };
+
+    console.log("Form data:", formData);
+
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/register`;
+
+  
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "Registration successful") {
+          setSuccess(true); 
+          setTimeout(() => {
+            router.push('/login') 
+          }, 3000)
+        } else {
+          setError(data.message || "Registration failed");
+        }
+      })
+      .catch((error) => {
+        setError("An error occurred. Please try again.");
+        console.error("Error:", error);
+      })
+      .catch((error) => console.error("Error:", error));
+
+    // Clear form fields
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+  };
   return (
-    <div className="flex flex-col items-center bg-french-gray mx-auto p-4 justify-center h-screen ">
+    <div className="flex flex-col w-full items-center bg-french-gray mx-auto p-4 justify-center  ">
     <div className="flex items-center mb-5">
       <Image
         src="/images/gamelogo.svg"
@@ -14,13 +83,25 @@ const page = () => {
       />
       <h1 className="text-heading-m pl-2 pt-2">kwix</h1>
     </div>
-    <div className="card bg-dim-gray mt-5 px-5 w-[476px] rounded-lg shadow-md pt-5 pb-10">
+    <div className="card bg-dim-gray md:mt-5 px-5 w-full md:w-[476px] rounded-lg shadow-md pt-5 pb-10">
+      {success ? ( <div>
+           
+           <img
+             src="/images/successful.gif"
+             alt="Success"
+             className="mx-auto"
+           />
+           <h1 className="text-center text-metallic-gold text-heading-s mt-5">
+             Registration Successful!
+           </h1>
+         </div>):(
+      <>
       <h1 className="text-heading-m pt-5">Create account</h1>
       <h2 className="text-body-m mt-2 text-light-black">
       Let&apos;s get you started sharing your links!
       </h2>
 
-      <form className=" w-full">
+      <form className=" w-full" onSubmit={handleSubmit}>
         <label
           htmlFor="email-address-icon"
           className="block text-body-s mb-[-10px]"
@@ -47,11 +128,38 @@ const page = () => {
             id="email-address-icon"
             className=" rounded-lg block w-full pl-10 text-black border border-french-gray text-body-m   focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
             placeholder="e.g. alex@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <label htmlFor="username" className="block text-body-s mb-[-10px]">Username</label>
+        <div className="relative w-full">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+            <svg
+              width="14"
+              height="10"
+              viewBox="0 0 14 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13 0H1C0.867392 0 0.740215 0.0526785 0.646447 0.146447C0.552678 0.240215 0.5 0.367392 0.5 0.5V9C0.5 9.26522 0.605357 9.51957 0.792893 9.70711C0.98043 9.89464 1.23478 10 1.5 10H12.5C12.7652 10 13.0196 9.89464 13.2071 9.70711C13.3946 9.51957 13.5 9.26522 13.5 9V0.5C13.5 0.367392 13.4473 0.240215 13.3536 0.146447C13.2598 0.0526785 13.1326 0 13 0ZM12.5 9H1.5V1.63688L6.66187 6.36875C6.75412 6.45343 6.87478 6.50041 7 6.50041C7.12522 6.50041 7.24588 6.45343 7.33813 6.36875L12.5 1.63688V9Z"
+                fill="#737373"
+              />
+            </svg>
+          </div>
+          <input
+            type="text"
+            id="username"
+            className=" rounded-lg block w-full pl-10 text-black border border-french-gray text-body-m   focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
+            placeholder="Enter your username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <label
           htmlFor="email-address-icon"
-          className="block text-body-s mt-5 mb-[-10px]"
+          className="block text-body-s mb-[-10px]"
         >
           Create password
         </label>
@@ -71,15 +179,17 @@ const page = () => {
             </svg>
           </div>
           <input
-            type="text"
+            type="password"
             id="email-address-icon"
             className=" rounded-lg block w-full pl-10 text-black border border-french-gray text-body-m   focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
             placeholder="At least 8 characters"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <label
           htmlFor="email-address-icon"
-          className="block text-body-s mt-5 mb-[-10px]"
+          className="block text-body-s mb-[-10px]"
         >
           Confirm password
         </label>
@@ -99,10 +209,12 @@ const page = () => {
             </svg>
           </div>
           <input
-            type="text"
+            type="password"
             id="email-address-icon"
             className=" rounded-lg block w-full pl-10 text-black border border-french-gray text-body-m  focus:border-metallic-gold focus:outline-metallic-gold focus:shadow-sm focus:shadow-metallic-gold"
             placeholder="At least 8 characters"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
         <h1 className="items-center  mt-5 text-body-s ">Password must contain at least 8 characters</h1>
@@ -110,13 +222,20 @@ const page = () => {
         Create new account
         </button>
       </form>
+      {error && (
+                <p className="text-red-500 items-center mt-5 text-body-s">
+                  {error}
+                </p>
+              )}
       <h1 className="flex mx-auto items-center justify-center mt-5 text-body-m">
         <span>Already have an account?  </span>
         <a href="/" className="text-hunyadi-yellow">Login</a>
       </h1>
+      </>
+      )}
     </div>
   </div>
   )
 }
 
-export default page
+export default Page

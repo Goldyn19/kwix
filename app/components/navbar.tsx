@@ -26,10 +26,10 @@ const Navbar = () => {
         </div>
         </a>
         <div className="flex ">
-          <a href="/question">
+          <a href="/quizes">
           <div
             className={`cursor-pointer flex items-center justify-center px-6 rounded-lg ${
-              currentPath === "/question" ? "text-hunyadi-yellow bg-coyote" : ""
+              currentPath.startsWith("/quizes") ? "text-hunyadi-yellow bg-coyote" : ""
             }`}
           >
             <Image
@@ -41,17 +41,17 @@ const Navbar = () => {
             />
             <h1
               className={`text-heading-s pl-1 hidden md:block ${
-                currentPath === "/question" ? "text-hunyadi-yellow" : "text-light-black"
+                currentPath === "/quizes" ? "text-hunyadi-yellow" : "text-light-black"
               }`}
             >
-              Questions
+              Quizes
             </h1>
           </div>
           </a>
-         <a href="/quizes">
+         <a href="/report">
          <div
             className={`cursor-pointer flex items-center justify-center py-1  px-6 rounded-lg ${
-              currentPath === "/quizes" ? "text-hunyadi-yellow bg-coyote" : ""
+              currentPath === "/report" ? "text-hunyadi-yellow bg-coyote" : ""
             }`}
           >
             <Image
@@ -63,10 +63,10 @@ const Navbar = () => {
             />
             <h1
               className={`text-heading-s pl-1  hidden md:block ${
-                currentPath === "/quizes" ? "text-hunyadi-yellow  " : "text-light-black"
+                currentPath === "/report" ? "text-hunyadi-yellow  " : "text-light-black"
               }`}
             >
-             my games
+             Report
             </h1>
           </div>
          </a>
